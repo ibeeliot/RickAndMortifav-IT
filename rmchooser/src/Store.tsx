@@ -17,14 +17,15 @@ const initialState: IState = {
 
 export const Store = React.createContext<IState>(initialState);
 
-const reducer = (state: IState, action: IAction): IState => {
+// your reducer function
+// can modularize if gets big
+export const reducer = (state: IState, action: IAction): IState => {
 	switch (action.type) {
 		case 'FETCH_DATE':
 			return { ...state, episodes: action.payload };
 		default:
 			return state;
 	}
-	return state;
 };
 
 export const StoreProvider = (props: any): JSX.Element => {
