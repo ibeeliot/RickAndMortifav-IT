@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useReducer } from 'react';
+import { ReactComponent } from '*.svg';
 
 interface IState {
 	episodes: [];
@@ -15,7 +16,7 @@ const initialState: IState = {
 	favorites: []
 };
 
-export const Store = React.createContext<IState>(initialState);
+export const Store = React.createContext<IState | any>(initialState);
 
 // your reducer function
 // can modularize if gets big
@@ -29,5 +30,8 @@ export const reducer = (state: IState, action: IAction): IState => {
 };
 
 export const StoreProvider = (props: any): JSX.Element => {
-	return <Store.Provider value={initialState}>{props.children}</Store.Provider>;
+	const [state, dispatch] = useReducer(reducer, initialState);
+	return (
+		<Store.Provider value={{ state, dispatch }}>{props.children}</Store.Provider>
+	);
 };
