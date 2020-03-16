@@ -2,8 +2,8 @@ import React, { useReducer } from 'react';
 import { ReactComponent } from '*.svg';
 
 interface IState {
-	episodes: [];
-	favorites: [];
+	episodes: Array<number>;
+	favorites: Array<string>;
 }
 
 interface IAction {
@@ -12,7 +12,7 @@ interface IAction {
 }
 
 const initialState: IState = {
-	episodes: [],
+	episodes: [1, 2, 3],
 	favorites: []
 };
 
@@ -22,6 +22,7 @@ export const Store = React.createContext<IState | any>(initialState);
 // can modularize if gets big
 export const reducer = (state: IState, action: IAction): IState => {
 	switch (action.type) {
+		// when returning inside a reducer function, return the entire state using the spread operator and then the next argument will be the specific properties of the state that you want to update
 		case 'FETCH_DATE':
 			return { ...state, episodes: action.payload };
 		default:
